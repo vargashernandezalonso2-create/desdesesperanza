@@ -4,188 +4,298 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin — La Desesperanza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container header-content">
             <a href="index.html" class="logo">
-                <div class="logo-mark"><span>LD</span></div>
-                <div class="logo-text">
-                    <strong>La Desesperanza</strong>
-                    [ADMIN]
-                </div>
+                <div class="logo-icon">LD</div>
+                <span class="logo-text">[ADMIN]</span>
             </a>
-            
-            <nav class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">Ir a Tienda</a>
+            <nav class="nav">
                 <a href="productos.html" class="nav-link">Catálogo</a>
-                <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+                <a href="#" class="nav-link" id="btnCerrarSesion">Cerrar Sesión</a>
             </nav>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </header>
 
-    <!-- Admin Page -->
-    <section class="admin-page">
+    <main class="main-content">
         <div class="container">
-            <div class="admin-header">
-                <h2>Panel de <em>Administración</em></h2>
-                <span id="adminNombre"></span>
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Panel de <em>Administración</em></h1>
+                <p>[GESTIÓN COMPLETA DEL SISTEMA]</p>
             </div>
-            
-            <!-- Stats -->
-            <div class="admin-stats">
-                <div class="stat-card">
-                    <h4>[Total Productos]</h4>
-                    <span class="stat-value" id="statProductos">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>[Total Usuarios]</h4>
-                    <span class="stat-value" id="statUsuarios">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>[Pan Dulce]</h4>
-                    <span class="stat-value" id="statPanDulce">0</span>
-                </div>
-                <div class="stat-card">
-                    <h4>[Stock Total]</h4>
-                    <span class="stat-value" id="statStock">0</span>
-                </div>
-            </div>
-            
-            <!-- Gestión de Usuarios -->
-            <div class="admin-section">
-                <div class="admin-section-header">
-                    <h3>[Gestión de Usuarios]</h3>
-                </div>
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Saldo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaUsuarios">
-                        <!-- Se carga dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Gestión de Productos -->
-            <div class="admin-section">
-                <div class="admin-section-header">
-                    <h3>[Gestión de Productos]</h3>
-                    <button class="btn btn-primary" onclick="mostrarModalProducto()">+ Nuevo</button>
-                </div>
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaProductos">
-                        <!-- Se carga dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
 
-    <!-- Modal Agregar Saldo -->
-    <div class="modal-overlay" id="modalSaldo">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Agregar Saldo</h3>
-                <button class="modal-close" onclick="cerrarModal('modalSaldo')">×</button>
+            <!-- Admin Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-section="dashboard">Dashboard</button>
+                <button class="admin-tab" data-section="productos">Productos</button>
+                <button class="admin-tab" data-section="usuarios">Usuarios</button>
+                <button class="admin-tab" data-section="historial">Historial Ventas</button>
             </div>
-            <div class="modal-body">
-                <p>Usuario: <strong id="saldoUsuarioNombre"></strong></p>
-                <div class="form-group">
-                    <label>[Cantidad a agregar]</label>
-                    <input type="number" id="inputSaldo" min="0" step="0.01" placeholder="0.00">
+
+            <!-- Dashboard Section -->
+            <section id="sectionDashboard" class="admin-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">[VENTAS TOTALES]</span>
+                        <span class="stat-value" id="statVentas">$0.00</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">[PEDIDOS]</span>
+                        <span class="stat-value" id="statPedidos">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">[CLIENTES]</span>
+                        <span class="stat-value" id="statClientes">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">[PRODUCTOS]</span>
+                        <span class="stat-value" id="statProductos">0</span>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="cerrarModal('modalSaldo')">Cancelar</button>
-                <button class="btn btn-primary" onclick="agregarSaldo()">Agregar →</button>
-            </div>
+
+                <!-- Gráficos -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>[Ventas por Día — Última Semana]</h3>
+                        <div class="chart-container">
+                            <canvas id="chartVentasDia"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>[Ventas por Categoría]</h3>
+                        <div class="chart-container">
+                            <canvas id="chartCategorias"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card chart-full">
+                        <h3>[Productos Más Vendidos]</h3>
+                        <div class="chart-container">
+                            <canvas id="chartProductos"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Productos Section -->
+            <section id="sectionProductos" class="admin-section" style="display:none;">
+                <div class="section-header">
+                    <h2>[Inventario de Productos]</h2>
+                    <button class="btn btn-primary" onclick="abrirModalProducto()">+ Nuevo Producto</button>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductos"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Usuarios Section -->
+            <section id="sectionUsuarios" class="admin-section" style="display:none;">
+                <div class="section-header">
+                    <h2>[Gestión de Usuarios]</h2>
+                </div>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Saldo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaUsuarios"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Historial Section -->
+            <section id="sectionHistorial" class="admin-section" style="display:none;">
+                <div class="section-header">
+                    <h2>[Historial de Ventas]</h2>
+                </div>
+                
+                <!-- Filtros de fecha -->
+                <div class="filtros-fecha">
+                    <div class="filtro-grupo">
+                        <label>[Desde]</label>
+                        <input type="date" id="fechaInicio">
+                    </div>
+                    <div class="filtro-grupo">
+                        <label>[Hasta]</label>
+                        <input type="date" id="fechaFin">
+                    </div>
+                    <button class="btn btn-secondary" onclick="filtrarHistorial()">Filtrar</button>
+                    <button class="btn btn-outline" onclick="limpiarFiltros()">Limpiar</button>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th># Venta</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Productos</th>
+                                <th>Subtotal</th>
+                                <th>Envío</th>
+                                <th>IVA</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaHistorial"></tbody>
+                    </table>
+                </div>
+            </section>
         </div>
-    </div>
+    </main>
 
     <!-- Modal Producto -->
     <div class="modal-overlay" id="modalProducto">
         <div class="modal">
             <div class="modal-header">
                 <h3 id="modalProductoTitulo">Nuevo Producto</h3>
-                <button class="modal-close" onclick="cerrarModal('modalProducto')">×</button>
+                <button class="modal-close" onclick="cerrarModalProducto()">×</button>
             </div>
-            <div class="modal-body">
-                <form id="formProducto">
-                    <input type="hidden" id="productoId">
-                    <div class="form-group">
-                        <label>[Nombre]</label>
-                        <input type="text" id="productoNombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label>[Descripción]</label>
-                        <input type="text" id="productoDescripcion" required>
-                    </div>
+            <form id="formProducto" class="modal-body">
+                <input type="hidden" id="productoId">
+                <div class="form-group">
+                    <label>[Nombre]</label>
+                    <input type="text" id="productoNombre" placeholder="Nombre del producto">
+                    <span class="error-msg" id="errorProductoNombre"></span>
+                </div>
+                <div class="form-group">
+                    <label>[Descripción]</label>
+                    <textarea id="productoDescripcion" placeholder="Descripción del producto" rows="3"></textarea>
+                    <span class="error-msg" id="errorProductoDescripcion"></span>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
                         <label>[Precio]</label>
-                        <input type="number" id="productoPrecio" min="0" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label>[Categoría]</label>
-                        <select id="productoCategoria" required style="width:100%;padding:12px 0;border:none;border-bottom:2px solid #0A0A0A;background:transparent;font-family:var(--font-sans);font-size:14px;">
-                            <option value="pan-dulce">Pan Dulce</option>
-                            <option value="pan-salado">Pan Salado</option>
-                            <option value="pasteles">Pasteles</option>
-                            <option value="galletas">Galletas</option>
-                            <option value="cupcakes">Cupcakes</option>
-                            <option value="postres">Postres</option>
-                        </select>
+                        <input type="text" id="productoPrecio" placeholder="0.00">
+                        <span class="error-msg" id="errorProductoPrecio"></span>
                     </div>
                     <div class="form-group">
                         <label>[Stock]</label>
-                        <input type="number" id="productoStock" min="0" required>
+                        <input type="text" id="productoStock" placeholder="0">
+                        <span class="error-msg" id="errorProductoStock"></span>
                     </div>
-                    <div class="form-group">
-                        <label>[URL de Imagen]</label>
-                        <input type="text" id="productoImagen" placeholder="https://...">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="cerrarModal('modalProducto')">Cancelar</button>
-                <button class="btn btn-primary" onclick="guardarProducto()">Guardar →</button>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label>[Categoría]</label>
+                    <select id="productoCategoria">
+                        <option value="">Seleccionar categoría</option>
+                        <option value="temporada">Temporada Navideña</option>
+                        <option value="pan-dulce">Pan Dulce</option>
+                        <option value="pan-salado">Pan Salado</option>
+                        <option value="pasteles">Pasteles</option>
+                        <option value="galletas">Galletas</option>
+                        <option value="cupcakes">Cupcakes</option>
+                        <option value="postres">Postres</option>
+                    </select>
+                    <span class="error-msg" id="errorProductoCategoria"></span>
+                </div>
+                <div class="form-group">
+                    <label>[URL de Imagen]</label>
+                    <input type="text" id="productoImagen" placeholder="https://...">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalProducto()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar →</button>
+                </div>
+                <span class="error-msg error-general" id="errorProductoGeneral"></span>
+            </form>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>© 2025 La Desesperanza — Panel de Administración</p>
+    <!-- Modal Usuario -->
+    <div class="modal-overlay" id="modalUsuario">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Editar Usuario</h3>
+                <button class="modal-close" onclick="cerrarModalUsuario()">×</button>
+            </div>
+            <form id="formUsuario" class="modal-body">
+                <input type="hidden" id="usuarioId">
+                <div class="form-group">
+                    <label>[Username]</label>
+                    <input type="text" id="usuarioUsername" disabled>
+                </div>
+                <div class="form-group">
+                    <label>[Nombre]</label>
+                    <input type="text" id="usuarioNombre" placeholder="Nombre completo">
+                    <span class="error-msg" id="errorUsuarioNombre"></span>
+                </div>
+                <div class="form-group">
+                    <label>[Email]</label>
+                    <input type="text" id="usuarioEmail" placeholder="email@ejemplo.com">
+                    <span class="error-msg" id="errorUsuarioEmail"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>[Rol]</label>
+                        <select id="usuarioRol">
+                            <option value="cliente">Cliente</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>[Saldo]</label>
+                        <input type="text" id="usuarioSaldo" placeholder="0.00">
+                        <span class="error-msg" id="errorUsuarioSaldo"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalUsuario()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar →</button>
+                </div>
+                <span class="error-msg error-general" id="errorUsuarioGeneral"></span>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Detalle Venta -->
+    <div class="modal-overlay" id="modalDetalle">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>Detalle de Venta #<span id="detalleNumero"></span></h3>
+                <button class="modal-close" onclick="cerrarModalDetalle()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="ticket-preview" id="ticketPreview"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModalDetalle()">Cerrar</button>
+                <button class="btn btn-primary" onclick="imprimirTicket()">Imprimir Ticket</button>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script src="app.js"></script>
     <script src="admin.js"></script>

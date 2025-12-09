@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito — La Desesperanza</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,74 +13,85 @@
     <header class="header">
         <div class="container header-content">
             <a href="index.html" class="logo">
-                <div class="logo-mark"><span>LD</span></div>
-                <div class="logo-text">
-                    <strong>La Desesperanza</strong>
-                    [PANADERÍA]
-                </div>
+                <div class="logo-icon">LD</div>
+                <span class="logo-text">[PANADERÍA]</span>
             </a>
-            
-            <nav class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">Inicio</a>
+            <nav class="nav">
                 <a href="productos.html" class="nav-link">Catálogo</a>
-                <a href="carrito.html" class="nav-link active">
-                    Carrito
-                    <span class="cart-count" id="cartBadge">0</span>
-                </a>
-                <a href="login.html" class="btn-login" id="btnLogin">Acceder →</a>
+                <a href="carrito.html" class="nav-link active">Carrito <span class="cart-badge" id="cartBadge">0</span></a>
+                <a href="perfil.html" class="nav-link" id="navPerfil">Mi Perfil</a>
+                <a href="login.html" class="nav-link" id="navLogin">Acceder</a>
             </nav>
-            
-            <button class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </header>
 
-    <!-- Page Header -->
-    <section class="page-header">
+    <main class="main-content">
         <div class="container">
-            <div class="page-header-content">
-                <div>
-                    <span class="section-label">[Carrito]</span>
-                    <h2>Tu <em>Pedido</em></h2>
-                </div>
-                <p>Revisa tus productos y completa tu compra.</p>
+            <div class="page-header">
+                <h1>Tu <em>Carrito</em></h1>
+                <p>[REVISA TUS PRODUCTOS]</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Carrito -->
-    <section class="carrito-page">
-        <div class="container">
             <!-- Sin sesión -->
-            <div id="sinSesion" style="display: none;">
-                <div class="carrito-vacio">
-                    <h3>Acceso Requerido</h3>
-                    <p>Inicia sesión para ver tu carrito y realizar compras.</p>
-                    <a href="login.html" class="btn btn-primary">Iniciar Sesión →</a>
-                </div>
+            <div id="sinSesion" class="estado-vacio" style="display: none;">
+                <div class="estado-icon">?</div>
+                <h2>Inicia sesión</h2>
+                <p>Para ver tu carrito necesitas iniciar sesión</p>
+                <a href="login.html" class="btn btn-primary">Iniciar Sesión →</a>
             </div>
-            
+
             <!-- Carrito vacío -->
-            <div id="carritoVacio" style="display: none;">
-                <div class="carrito-vacio">
-                    <h3>Carrito Vacío</h3>
-                    <p>No tienes productos en tu carrito. Explora nuestro catálogo.</p>
-                    <a href="productos.html" class="btn btn-primary">Ver Catálogo →</a>
-                </div>
+            <div id="carritoVacio" class="estado-vacio" style="display: none;">
+                <div class="estado-icon">○</div>
+                <h2>Carrito vacío</h2>
+                <p>Aún no has agregado productos a tu carrito</p>
+                <a href="productos.html" class="btn btn-primary">Explorar Catálogo →</a>
             </div>
-            
+
             <!-- Carrito con productos -->
             <div id="carritoContenido" class="carrito-content" style="display: none;">
-                <div class="carrito-items">
-                    <div class="carrito-header">
-                        <h3>[Productos]</h3>
-                        <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
+                <div class="carrito-main">
+                    <div class="carrito-items">
+                        <div class="carrito-header">
+                            <h3>[Productos]</h3>
+                            <button class="btn-vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
+                        </div>
+                        <div class="carrito-lista" id="carritoLista"></div>
                     </div>
-                    <div class="carrito-lista" id="carritoLista">
-                        <!-- Se cargan dinámicamente -->
+                    
+                    <!-- Sección de envío -->
+                    <div class="carrito-envio">
+                        <div class="carrito-header">
+                            <h3>[Envío a Domicilio]</h3>
+                        </div>
+                        <div class="envio-content">
+                            <div class="envio-ubicacion" id="envioUbicacion">
+                                <div class="ubicacion-status" id="ubicacionStatus">
+                                    <span class="ubicacion-icon">◎</span>
+                                    <span>Detectando ubicación...</span>
+                                </div>
+                                <div class="ubicacion-resultado" id="ubicacionResultado" style="display: none;">
+                                    <p class="ubicacion-direccion" id="ubicacionDireccion"></p>
+                                    <button class="btn-cambiar-ubicacion" onclick="solicitarUbicacion()">Cambiar ubicación</button>
+                                </div>
+                            </div>
+                            <div class="envio-opciones">
+                                <label class="envio-opcion">
+                                    <input type="radio" name="tipoEnvio" value="domicilio" checked onchange="actualizarEnvio()">
+                                    <span class="opcion-info">
+                                        <strong>Envío a domicilio</strong>
+                                        <span class="opcion-precio" id="precioEnvio">$50.00</span>
+                                    </span>
+                                </label>
+                                <label class="envio-opcion">
+                                    <input type="radio" name="tipoEnvio" value="recoger" onchange="actualizarEnvio()">
+                                    <span class="opcion-info">
+                                        <strong>Recoger en tienda</strong>
+                                        <span class="opcion-precio">Gratis</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -88,11 +101,16 @@
                         <div class="resumen-saldo">
                             <span>Tu saldo disponible</span>
                             <strong id="saldoUsuario">$0.00</strong>
+                            <button class="btn-agregar-saldo" onclick="mostrarModalSaldo()">+ Agregar</button>
                         </div>
                         
                         <div class="resumen-linea">
                             <span>Subtotal</span>
                             <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="resumen-linea">
+                            <span>Envío</span>
+                            <span id="costoEnvio">$50.00</span>
                         </div>
                         <div class="resumen-linea">
                             <span>IVA (16%)</span>
@@ -113,35 +131,71 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Modal Agregar Saldo -->
+            <div class="modal-overlay" id="modalAgregarSaldo">
+                <div class="modal">
+                    <div class="modal-header">
+                        <h3>Agregar Saldo</h3>
+                        <button class="modal-close" onclick="cerrarModalSaldo()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-info">Ingresa la cantidad que deseas agregar a tu saldo.</p>
+                        <div class="form-group">
+                            <label>[Cantidad]</label>
+                            <input type="text" id="inputAgregarSaldo" placeholder="0.00">
+                            <span class="error-msg" id="errorSaldo"></span>
+                        </div>
+                        <div class="saldo-rapido">
+                            <button class="btn-saldo-rapido" onclick="setSaldoRapido(100)">$100</button>
+                            <button class="btn-saldo-rapido" onclick="setSaldoRapido(500)">$500</button>
+                            <button class="btn-saldo-rapido" onclick="setSaldoRapido(1000)">$1,000</button>
+                            <button class="btn-saldo-rapido" onclick="setSaldoRapido(5000)">$5,000</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="cerrarModalSaldo()">Cancelar</button>
+                        <button class="btn btn-primary" onclick="agregarSaldoUsuario()">Agregar →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Ticket -->
+            <div class="modal-overlay" id="modalTicket">
+                <div class="modal modal-lg">
+                    <div class="modal-header">
+                        <h3>¡Compra Exitosa!</h3>
+                        <button class="modal-close" onclick="cerrarModalTicket()">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ticket-preview" id="ticketCompra"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="cerrarModalTicket()">Cerrar</button>
+                        <a href="perfil.html" class="btn btn-primary">Ver Historial →</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-content">
                 <div class="footer-brand">
-                    <h3>La Desesperanza</h3>
-                    <p>Panadería artesanal con tradición desde 2020.</p>
+                    <span class="footer-logo">La Desesperanza</span>
+                    <p>Panadería artesanal desde 1985</p>
                 </div>
-                <div class="footer-section">
-                    <h4>[Enlaces]</h4>
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="productos.html">Catálogo</a></li>
-                        <li><a href="carrito.html">Carrito</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>[Contacto]</h4>
-                    <ul>
-                        <li><a href="#">contacto@ladesesperanza.mx</a></li>
-                        <li><a href="#">+52 55 1234 5678</a></li>
-                    </ul>
+                <div class="footer-links">
+                    <span class="footer-label">[NAVEGACIÓN]</span>
+                    <a href="index.html">Inicio</a>
+                    <a href="productos.html">Catálogo</a>
+                    <a href="carrito.html">Carrito</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 La Desesperanza. Todos los derechos reservados.</p>
+                <p>© 2024 La Desesperanza. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

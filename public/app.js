@@ -46,9 +46,9 @@ function actualizarUIUsuario() {
         const userMenu = document.createElement('div');
         userMenu.className = 'user-menu';
         userMenu.innerHTML = `
-            <div class="user-info">
+            <a href="perfil.html" class="user-info">
                 Hola, <span>${usuarioActual.nombre}</span>
-            </div>
+            </a>
             ${usuarioActual.rol === 'admin' ? '<a href="admin.html" class="btn-admin">[Admin]</a>' : ''}
             <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
         `;

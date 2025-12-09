@@ -84,6 +84,41 @@ img {
     gap: 12px;
 }
 
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* aaa navegacion alternativa -bynd */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    border: 1px solid var(--color-black);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 4px;
+    padding: 0 4px;
+}
+
 .logo-mark {
     width: 40px;
     height: 40px;
@@ -1163,24 +1198,69 @@ img {
     margin-bottom: 8px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea,
+.form-group select {
     width: 100%;
-    padding: 12px 0;
+    padding: 12px 16px;
     font-family: var(--font-sans);
     font-size: 14px;
-    border: none;
-    border-bottom: var(--border-medium);
-    background: transparent;
+    border: var(--border-medium);
+    background: var(--color-white);
     transition: border-color 0.15s ease;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-hard-sm);
 }
 
-.form-group input::placeholder {
+.form-group input::placeholder,
+.form-group textarea::placeholder {
     color: var(--color-gray-light);
+}
+
+.form-group.has-error input,
+.form-group.has-error textarea,
+.form-group.has-error select {
+    border-color: var(--color-accent-secondary);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.error-msg {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-accent-secondary);
+    margin-top: 6px;
+    min-height: 14px;
+}
+
+.error-general {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.btn-full {
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-black);
+}
+
+.btn-outline:hover {
+    background: var(--color-gray-bg);
 }
 
 .form-error {
@@ -1677,4 +1757,1248 @@ img {
     font-family: var(--font-sans);
     font-size: 14px;
     color: var(--color-gray-text);
+}
+
+/* ey estilos de envio -bynd */
+.carrito-content {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 32px;
+}
+
+.carrito-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.carrito-envio {
+    background: var(--color-white);
+    border: var(--border-thick);
+}
+
+.envio-content {
+    padding: 24px;
+}
+
+.envio-ubicacion {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: var(--border-gray);
+}
+
+.ubicacion-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-text);
+}
+
+.ubicacion-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent);
+    border: var(--border-medium);
+    font-size: 10px;
+    animation: pulse 1.5s infinite;
+}
+
+.ubicacion-icon.error {
+    background: var(--color-accent-secondary);
+    color: var(--color-white);
+    animation: none;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.ubicacion-resultado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.ubicacion-direccion {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    flex: 1;
+}
+
+.btn-cambiar-ubicacion,
+.btn-reintentar {
+    background: none;
+    border: var(--border-medium);
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-cambiar-ubicacion:hover,
+.btn-reintentar:hover {
+    background: var(--color-gray-bg);
+}
+
+.envio-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.envio-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: var(--border-medium);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.envio-opcion:hover {
+    background: var(--color-gray-bg);
+}
+
+.envio-opcion input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-black);
+}
+
+.envio-opcion input[type="radio"]:checked + .opcion-info {
+    font-weight: 600;
+}
+
+.opcion-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 14px;
+}
+
+.opcion-precio {
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+/* aaa estilos de agregar saldo -bynd */
+.resumen-saldo {
+    background: var(--color-accent);
+    border: var(--border-medium);
+    padding: 16px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.btn-agregar-saldo {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--color-black);
+    color: var(--color-white);
+    border: none;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-agregar-saldo:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+}
+
+.modal-info {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-gray-text);
+    margin-bottom: 20px;
+}
+
+.saldo-rapido {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.btn-saldo-rapido {
+    flex: 1;
+    background: var(--color-gray-bg);
+    border: var(--border-medium);
+    padding: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-saldo-rapido:hover {
+    background: var(--color-accent);
+}
+
+/* chintrolas banner navideño -bynd */
+.banner-temporada {
+    background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+    color: var(--color-white);
+    padding: 16px 24px;
+    border: var(--border-thick);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner-temporada-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.banner-temporada-icon {
+    font-size: 24px;
+}
+
+.banner-temporada h3 {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.banner-temporada p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+}
+
+.banner-temporada .btn-primary {
+    background: var(--color-white);
+    color: #1a472a;
+}
+
+.banner-temporada .btn-primary:hover {
+    background: var(--color-accent);
+    color: var(--color-black);
+}
+
+/* ey categoria temporada destacada -bynd */
+.categoria-temporada {
+    background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+    color: var(--color-white);
+}
+
+.categoria-temporada .categoria-icon {
+    background: var(--color-accent);
+    color: var(--color-black);
+}
+
+.categoria-temporada h3,
+.categoria-temporada p {
+    color: var(--color-white);
+}
+
+.categoria-temporada:hover {
+    background: linear-gradient(135deg, #2d5a3d 0%, #3d7a5d 100%);
+}
+
+/* aaa filtro temporada destacado -bynd */
+.filtro-temporada {
+    background: #1a472a;
+    color: var(--color-white);
+    border-color: #1a472a;
+}
+
+.filtro-temporada:hover {
+    background: #2d5a3d;
+}
+
+.filtro-temporada.active {
+    background: var(--color-accent);
+    color: var(--color-black);
+    border-color: var(--color-black);
+}
+
+/* q chidoteee responsive envio -bynd */
+@media (max-width: 768px) {
+    .carrito-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .ubicacion-resultado {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .saldo-rapido {
+        flex-wrap: wrap;
+    }
+    
+    .btn-saldo-rapido {
+        flex: 1 1 calc(50% - 4px);
+    }
+}
+
+/* ================================================ */
+/* ey ESTILOS DE LOGIN -bynd */
+/* ================================================ */
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 40px 0;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--color-white);
+    border: var(--border-thick);
+    box-shadow: var(--shadow-hard);
+}
+
+.login-header {
+    padding: 32px 32px 24px;
+    text-align: center;
+    border-bottom: var(--border-medium);
+}
+
+.login-header h1 {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-text);
+}
+
+.login-tabs {
+    display: flex;
+    border-bottom: var(--border-medium);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 16px;
+    background: var(--color-gray-bg);
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.tab-btn:first-child {
+    border-right: var(--border-medium);
+}
+
+.tab-btn.active {
+    background: var(--color-white);
+    font-weight: 600;
+}
+
+.tab-btn:hover:not(.active) {
+    background: var(--color-gray-light);
+}
+
+.login-form {
+    padding: 32px;
+}
+
+.hint-msg {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-gray-text);
+    margin-top: 4px;
+}
+
+.demo-credentials {
+    padding: 24px 32px 32px;
+    background: var(--color-gray-bg);
+    border-top: var(--border-medium);
+}
+
+.demo-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-text);
+    margin-bottom: 12px;
+}
+
+.demo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.demo-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.demo-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-gray-text);
+}
+
+.demo-item code {
+    font-family: var(--font-mono);
+    background: var(--color-white);
+    padding: 4px 8px;
+    border: var(--border-thin);
+    font-size: 12px;
+}
+
+/* ================================================ */
+/* aaa ESTILOS DE ADMIN -bynd */
+/* ================================================ */
+
+.admin-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border: var(--border-thick);
+    background: var(--color-gray-bg);
+}
+
+.admin-tab {
+    flex: 1;
+    padding: 16px 24px;
+    background: transparent;
+    border: none;
+    border-right: var(--border-medium);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.admin-tab:last-child {
+    border-right: none;
+}
+
+.admin-tab.active {
+    background: var(--color-white);
+    font-weight: 600;
+}
+
+.admin-tab:hover:not(.active) {
+    background: var(--color-gray-light);
+}
+
+/* chintrolas stats cards -bynd */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--color-white);
+    border: var(--border-thick);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-text);
+}
+
+.stat-value {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 500;
+}
+
+/* q chidoteee graficos -bynd */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: var(--color-white);
+    border: var(--border-thick);
+    padding: 24px;
+}
+
+.chart-card.chart-full {
+    grid-column: 1 / -1;
+}
+
+.chart-card h3 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: var(--color-gray-text);
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+}
+
+/* ey tablas admin -bynd */
+.table-container {
+    overflow-x: auto;
+    border: var(--border-thick);
+    background: var(--color-white);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background: var(--color-gray-bg);
+    padding: 16px;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-bottom: var(--border-thick);
+}
+
+.admin-table td {
+    padding: 16px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    border-bottom: var(--border-gray);
+    vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tr:hover td {
+    background: var(--color-gray-bg);
+}
+
+.tabla-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: var(--border-medium);
+}
+
+.badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+    background: var(--color-gray-bg);
+    border: var(--border-thin);
+}
+
+.badge-admin {
+    background: var(--color-accent);
+}
+
+.btn-tabla {
+    background: var(--color-white);
+    border: var(--border-medium);
+    padding: 8px 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-right: 4px;
+}
+
+.btn-tabla:hover {
+    background: var(--color-gray-bg);
+}
+
+.btn-tabla.btn-danger {
+    background: var(--color-accent-secondary);
+    color: var(--color-white);
+    border-color: var(--color-accent-secondary);
+}
+
+.btn-tabla.btn-danger:hover {
+    opacity: 0.8;
+}
+
+/* aaa filtros de fecha -bynd */
+.filtros-fecha {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    padding: 20px;
+    background: var(--color-gray-bg);
+    border: var(--border-medium);
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filtro-grupo label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--color-gray-text);
+}
+
+.filtro-grupo input[type="date"] {
+    padding: 10px 14px;
+    border: var(--border-medium);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--color-white);
+}
+
+/* ================================================ */
+/* chintrolas ESTILOS DE PERFIL -bynd */
+/* ================================================ */
+
+.perfil-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.perfil-card {
+    background: var(--color-white);
+    border: var(--border-thick);
+    padding: 32px;
+}
+
+.perfil-card h3 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-text);
+    margin-bottom: 24px;
+}
+
+.perfil-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: var(--border-gray);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--color-gray-text);
+    text-transform: uppercase;
+}
+
+.info-value {
+    font-family: var(--font-sans);
+    font-size: 15px;
+}
+
+.perfil-saldo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--color-accent);
+}
+
+.saldo-grande {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+/* q chidoteee historial de compras -bynd */
+.historial-section {
+    margin-top: 32px;
+}
+
+.historial-section h2 {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-text);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: var(--border-medium);
+}
+
+.historial-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.historial-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: var(--color-white);
+    border: var(--border-medium);
+    transition: all 0.15s ease;
+}
+
+.historial-item:hover {
+    border-color: var(--color-black);
+    box-shadow: var(--shadow-hard-sm);
+}
+
+.historial-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.historial-numero {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--color-gray-bg);
+    padding: 8px 12px;
+    border: var(--border-medium);
+}
+
+.historial-detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.historial-fecha {
+    font-family: var(--font-sans);
+    font-size: 14px;
+}
+
+.historial-productos {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-gray-text);
+}
+
+.historial-total {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.historial-monto {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 10px;
+}
+
+.estado-vacio-mini {
+    text-align: center;
+    padding: 48px 24px;
+    background: var(--color-gray-bg);
+    border: var(--border-medium);
+    border-style: dashed;
+}
+
+.estado-vacio-mini p {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-gray-text);
+    margin-bottom: 16px;
+}
+
+/* ================================================ */
+/* ey ESTILOS DE TICKET -bynd */
+/* ================================================ */
+
+.ticket {
+    background: var(--color-white);
+    border: var(--border-thick);
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: var(--font-mono);
+}
+
+.ticket-header {
+    text-align: center;
+    padding: 24px;
+    border-bottom: 2px dashed var(--color-black);
+}
+
+.ticket-header h2 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.ticket-header p {
+    font-size: 11px;
+    color: var(--color-gray-text);
+}
+
+.ticket-info {
+    padding: 16px 24px;
+    border-bottom: var(--border-gray);
+}
+
+.ticket-info p {
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.ticket-info p:last-child {
+    margin-bottom: 0;
+}
+
+.ticket-productos {
+    padding: 16px 24px;
+}
+
+.ticket-productos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ticket-productos th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding-bottom: 8px;
+    border-bottom: var(--border-thin);
+    color: var(--color-gray-text);
+}
+
+.ticket-productos td {
+    padding: 8px 0;
+    font-size: 11px;
+    border-bottom: var(--border-gray);
+}
+
+.ticket-productos tr:last-child td {
+    border-bottom: none;
+}
+
+.ticket-totales {
+    padding: 16px 24px;
+    border-top: var(--border-gray);
+}
+
+.ticket-totales p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.ticket-totales p:last-child {
+    margin-bottom: 0;
+}
+
+.ticket-total {
+    font-size: 16px !important;
+    font-weight: 700;
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: var(--border-medium);
+}
+
+.ticket-footer {
+    text-align: center;
+    padding: 16px 24px 24px;
+    border-top: 2px dashed var(--color-black);
+}
+
+.ticket-footer p {
+    font-size: 11px;
+    color: var(--color-gray-text);
+    margin-bottom: 4px;
+}
+
+.ticket-footer p:last-child {
+    margin-bottom: 0;
+}
+
+/* aaa modales grandes -bynd */
+.modal-lg {
+    max-width: 500px;
+}
+
+.ticket-preview {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* chintrolas carrito items mejorado -bynd */
+.carrito-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto auto;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    background: var(--color-white);
+    border: var(--border-medium);
+    margin-bottom: 12px;
+}
+
+.carrito-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: var(--border-medium);
+}
+
+.item-info h4 {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.item-precio {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-gray-text);
+}
+
+.item-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.btn-cantidad {
+    width: 32px;
+    height: 32px;
+    background: var(--color-gray-bg);
+    border: var(--border-medium);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-cantidad:hover {
+    background: var(--color-accent);
+}
+
+.item-subtotal {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-eliminar {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: var(--border-medium);
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--color-gray-text);
+    transition: all 0.15s ease;
+}
+
+.btn-eliminar:hover {
+    background: var(--color-accent-secondary);
+    color: var(--color-white);
+    border-color: var(--color-accent-secondary);
+}
+
+/* q chidoteee carrito header y lista -bynd */
+.carrito-items {
+    background: var(--color-white);
+    border: var(--border-thick);
+}
+
+.carrito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--color-gray-bg);
+    border-bottom: var(--border-medium);
+}
+
+.carrito-header h3 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+}
+
+.btn-vaciar {
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-secondary);
+    cursor: pointer;
+}
+
+.btn-vaciar:hover {
+    text-decoration: underline;
+}
+
+.carrito-lista {
+    padding: 20px;
+}
+
+/* ey boton pagar -bynd */
+.btn-pagar {
+    width: 100%;
+    padding: 18px 28px;
+    background: var(--color-accent);
+    border: var(--border-thick);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: var(--shadow-hard);
+    transition: all 0.15s ease;
+}
+
+.btn-pagar:hover:not(.disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--color-black);
+}
+
+.btn-pagar.disabled {
+    background: var(--color-gray-light);
+    color: var(--color-gray-text);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.mensaje-saldo {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-accent-secondary);
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* aaa resumen mejorado -bynd */
+.carrito-resumen {
+    background: var(--color-white);
+    border: var(--border-thick);
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.carrito-resumen h3 {
+    padding: 16px 20px;
+    background: var(--color-gray-bg);
+    border-bottom: var(--border-medium);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+}
+
+.resumen-body {
+    padding: 24px;
+}
+
+.resumen-linea {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.resumen-linea.total {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 600;
+    padding-top: 16px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    border-top: var(--border-medium);
+}
+
+/* chintrolas estados vacios -bynd */
+.estado-vacio {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.estado-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    border: var(--border-thick);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 32px;
+}
+
+.estado-vacio h2 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.estado-vacio p {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-gray-text);
+    margin-bottom: 24px;
+}
+
+/* q chidoteee page header -bynd */
+.page-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: var(--border-medium);
+}
+
+.page-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.page-header h1 em {
+    font-style: italic;
+    color: var(--color-gray-text);
+}
+
+.page-header p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--color-gray-text);
+}
+
+/* ey responsive admin y perfil -bynd */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .perfil-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-tabs {
+        flex-direction: column;
+    }
+    
+    .admin-tab {
+        border-right: none;
+        border-bottom: var(--border-medium);
+    }
+    
+    .admin-tab:last-child {
+        border-bottom: none;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filtros-fecha {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .historial-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .historial-total {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .carrito-item {
+        grid-template-columns: 60px 1fr;
+        gap: 12px;
+    }
+    
+    .item-cantidad,
+    .item-subtotal,
+    .btn-eliminar {
+        grid-column: 2;
+    }
 }
