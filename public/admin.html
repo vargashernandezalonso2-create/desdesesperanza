@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - La Desesperanza</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🥖</span>
+                <div class="logo-text">
+                    <h1>LA DESESPERANZA</h1>
+                    <span>Panel Admin</span>
+                </div>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">🏠 Ir a Tienda</a>
+                <a href="productos.html" class="nav-link">Catálogo</a>
+                <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+            </nav>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Admin Page -->
+    <section class="admin-page">
+        <div class="container">
+            <div class="admin-header">
+                <h2>📊 Panel de Administración</h2>
+                <span id="adminNombre"></span>
+            </div>
+            
+            <!-- Stats -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <h4>Total Productos</h4>
+                    <span class="stat-value" id="statProductos">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Usuarios</h4>
+                    <span class="stat-value" id="statUsuarios">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Pan Dulce</h4>
+                    <span class="stat-value" id="statPanDulce">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Stock Total</h4>
+                    <span class="stat-value" id="statStock">0</span>
+                </div>
+            </div>
+            
+            <!-- Gestión de Usuarios -->
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <h3>👥 Gestión de Usuarios</h3>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Saldo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios">
+                        <!-- Se carga dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Gestión de Productos -->
+            <div class="admin-section">
+                <div class="admin-section-header">
+                    <h3>🥐 Gestión de Productos</h3>
+                    <button class="btn btn-primary" onclick="mostrarModalProducto()">+ Nuevo Producto</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaProductos">
+                        <!-- Se carga dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Agregar Saldo -->
+    <div class="modal-overlay" id="modalSaldo">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>💰 Agregar Saldo</h3>
+                <button class="modal-close" onclick="cerrarModal('modalSaldo')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Usuario: <strong id="saldoUsuarioNombre"></strong></p>
+                <div class="form-group">
+                    <label>Cantidad a agregar ($)</label>
+                    <input type="number" id="inputSaldo" min="0" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal('modalSaldo')">Cancelar</button>
+                <button class="btn btn-primary" onclick="agregarSaldo()">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Producto -->
+    <div class="modal-overlay" id="modalProducto">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalProductoTitulo">Nuevo Producto</h3>
+                <button class="modal-close" onclick="cerrarModal('modalProducto')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formProducto">
+                    <input type="hidden" id="productoId">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="productoNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <input type="text" id="productoDescripcion" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio</label>
+                        <input type="number" id="productoPrecio" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoría</label>
+                        <select id="productoCategoria" required>
+                            <option value="pan-dulce">Pan Dulce</option>
+                            <option value="pan-salado">Pan Salado</option>
+                            <option value="pasteles">Pasteles</option>
+                            <option value="galletas">Galletas</option>
+                            <option value="cupcakes">Cupcakes</option>
+                            <option value="postres">Postres</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Stock</label>
+                        <input type="number" id="productoStock" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen (nombre del archivo)</label>
+                        <input type="text" id="productoImagen" placeholder="resources/mi-imagen.png">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal('modalProducto')">Cancelar</button>
+                <button class="btn btn-primary" onclick="guardarProducto()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2025 La Desesperanza - Panel de Administración</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

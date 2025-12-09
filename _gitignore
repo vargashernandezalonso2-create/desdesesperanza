@@ -1,0 +1,6 @@
+# ey archivos a ignorar -bynd
+node_modules/
+.env
+*.log
+.DS_Store
+.idea

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - La Desesperanza</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🥖</span>
+                <div class="logo-text">
+                    <h1>LA DESESPERANZA</h1>
+                    <span>Panadería Artesanal</span>
+                </div>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="productos.html" class="nav-link active">Catálogo</a>
+                <a href="carrito.html" class="nav-link">
+                    🛒 Carrito
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <a href="login.html" class="nav-link btn-login" id="btnLogin">Iniciar Sesión</a>
+            </nav>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h2>Catálogo de Productos</h2>
+            <p>Pan fresco horneado todos los días con los mejores ingredientes</p>
+        </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filtros">
+        <div class="container">
+            <div class="filtros-content">
+                <div class="filtros-categorias">
+                    <button class="filtro-btn active" data-categoria="todos">Todos</button>
+                    <button class="filtro-btn" data-categoria="pan-dulce">Pan Dulce</button>
+                    <button class="filtro-btn" data-categoria="pan-salado">Pan Salado</button>
+                    <button class="filtro-btn" data-categoria="pasteles">Pasteles</button>
+                    <button class="filtro-btn" data-categoria="galletas">Galletas</button>
+                    <button class="filtro-btn" data-categoria="cupcakes">Cupcakes</button>
+                    <button class="filtro-btn" data-categoria="postres">Postres</button>
+                </div>
+                <div class="busqueda">
+                    <input type="text" id="inputBusqueda" placeholder="Buscar productos...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="catalogo">
+        <div class="container">
+            <div class="productos-grid" id="productosGrid">
+                <!-- Se cargan dinámicamente -->
+            </div>
+            
+            <div id="noResultados" style="display: none; text-align: center; padding: 60px 20px;">
+                <span style="font-size: 4rem;">🔍</span>
+                <h3 style="margin: 20px 0 10px;">No se encontraron productos</h3>
+                <p style="color: var(--color-text-light);">Intenta con otra búsqueda o categoría</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>🥖 La Desesperanza</h3>
+                    <p>Panadería artesanal con tradición.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Catálogo</a></li>
+                        <li><a href="carrito.html">Carrito</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>📧 contacto@ladesesperanza.mx</li>
+                        <li>📞 +52 55 1234 5678</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 La Desesperanza. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="productos.js"></script>
+</body>
+</html>

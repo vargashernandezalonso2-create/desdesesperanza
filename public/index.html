@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Desesperanza - Panadería Artesanal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🥖</span>
+                <div class="logo-text">
+                    <h1>LA DESESPERANZA</h1>
+                    <span>Panadería Artesanal</span>
+                </div>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">Inicio</a>
+                <a href="productos.html" class="nav-link">Catálogo</a>
+                <a href="carrito.html" class="nav-link">
+                    🛒 Carrito
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <a href="login.html" class="nav-link btn-login" id="btnLogin">Iniciar Sesión</a>
+            </nav>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <span class="hero-badge">🥐 Panadería Artesanal</span>
+            <h2 class="hero-title">Pan Fresco <span>Todos los Días</span></h2>
+            <p class="hero-subtitle">Horneamos con amor usando recetas tradicionales y los mejores ingredientes. Descubre el sabor auténtico de la panadería mexicana.</p>
+            <div class="hero-buttons">
+                <a href="productos.html" class="btn btn-primary">Ver Catálogo</a>
+                <a href="#destacados" class="btn btn-secondary">Explorar</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Productos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Artesanal</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24h</span>
+                    <span class="stat-label">Frescura</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorías -->
+    <section class="categorias" id="categorias">
+        <div class="container">
+            <h2 class="section-title">Nuestras Categorías</h2>
+            <div class="categorias-grid">
+                <a href="productos.html?categoria=pan-dulce" class="categoria-card">
+                    <span class="categoria-icon">🍞</span>
+                    <h3>Pan Dulce</h3>
+                    <p>Conchas, cuernos y más</p>
+                </a>
+                <a href="productos.html?categoria=pan-salado" class="categoria-card">
+                    <span class="categoria-icon">🥖</span>
+                    <h3>Pan Salado</h3>
+                    <p>Baguettes y bolillos</p>
+                </a>
+                <a href="productos.html?categoria=pasteles" class="categoria-card">
+                    <span class="categoria-icon">🎂</span>
+                    <h3>Pasteles</h3>
+                    <p>Para toda ocasión</p>
+                </a>
+                <a href="productos.html?categoria=galletas" class="categoria-card">
+                    <span class="categoria-icon">🍪</span>
+                    <h3>Galletas</h3>
+                    <p>Crujientes y suaves</p>
+                </a>
+                <a href="productos.html?categoria=cupcakes" class="categoria-card">
+                    <span class="categoria-icon">🧁</span>
+                    <h3>Cupcakes</h3>
+                    <p>Decorados a mano</p>
+                </a>
+                <a href="productos.html?categoria=postres" class="categoria-card">
+                    <span class="categoria-icon">🍩</span>
+                    <h3>Postres</h3>
+                    <p>Donas, brownies y más</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos Destacados -->
+    <section class="destacados" id="destacados">
+        <div class="container">
+            <h2 class="section-title">Productos Destacados</h2>
+            <div class="productos-grid" id="productosDestacados">
+                <!-- Se cargan dinámicamente -->
+            </div>
+            <div class="ver-mas">
+                <a href="productos.html" class="btn btn-primary">Ver Todo el Catálogo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beneficios -->
+    <section class="beneficios">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegirnos?</h2>
+            <div class="beneficios-grid">
+                <div class="beneficio-card">
+                    <span class="beneficio-icon">🚚</span>
+                    <h3>Envío a Domicilio</h3>
+                    <p>Entrega rápida y segura</p>
+                </div>
+                <div class="beneficio-card">
+                    <span class="beneficio-icon">⏰</span>
+                    <h3>Siempre Fresco</h3>
+                    <p>Horneado diariamente</p>
+                </div>
+                <div class="beneficio-card">
+                    <span class="beneficio-icon">⭐</span>
+                    <h3>Calidad Premium</h3>
+                    <p>Ingredientes selectos</p>
+                </div>
+                <div class="beneficio-card">
+                    <span class="beneficio-icon">🎨</span>
+                    <h3>100% Artesanal</h3>
+                    <p>Hecho a mano con amor</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>🥖 La Desesperanza</h3>
+                    <p>Panadería artesanal con tradición. Horneamos con amor desde 2020.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="productos.html">Catálogo</a></li>
+                        <li><a href="carrito.html">Carrito</a></li>
+                        <li><a href="login.html">Mi Cuenta</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>📧 contacto@ladesesperanza.mx</li>
+                        <li>📞 +52 55 1234 5678</li>
+                        <li>📍 CDMX, México</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Horario</h4>
+                    <ul>
+                        <li>Lun - Vie: 7am - 9pm</li>
+                        <li>Sábado: 8am - 8pm</li>
+                        <li>Domingo: 8am - 3pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 La Desesperanza. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
