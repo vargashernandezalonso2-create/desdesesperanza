@@ -1,20 +1,32 @@
 // ey app.js principal -bynd
 
+console.log('[APP] Script iniciando...');
+
 // aaa variables globales -bynd
 const API_URL = '';
 let usuarioActual = null;
 
 // chintrolas inicializacion -bynd
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('[APP] DOM cargado');
     initApp();
 });
 
 function initApp() {
+    console.log('[APP] initApp()');
+    
     // ey cargar usuario de localStorage -bynd
     const usuarioGuardado = localStorage.getItem('usuario');
+    console.log('[APP] Usuario guardado:', usuarioGuardado);
+    
     if (usuarioGuardado) {
-        usuarioActual = JSON.parse(usuarioGuardado);
-        actualizarUIUsuario();
+        try {
+            usuarioActual = JSON.parse(usuarioGuardado);
+            console.log('[APP] Usuario parseado:', usuarioActual);
+            actualizarUIUsuario();
+        } catch (e) {
+            console.error('[APP] Error parseando usuario:', e);
+        }
     }
     
     // q chidoteee menu toggle para mobile -bynd
@@ -33,15 +45,20 @@ function initApp() {
     // ey cargar productos destacados si estamos en index -bynd
     const productosDestacados = document.getElementById('productosDestacados');
     if (productosDestacados) {
+        console.log('[APP] Cargando productos destacados...');
         cargarProductosDestacados();
     }
+    
+    console.log('[APP] Inicialización completa');
 }
 
 // chintrolas funciones de usuario -bynd
 function actualizarUIUsuario() {
+    console.log('[APP] actualizarUIUsuario()');
     const btnLogin = document.getElementById('btnLogin');
     
     if (usuarioActual && btnLogin) {
+        console.log('[APP] Actualizando UI para usuario:', usuarioActual.nombre);
         // q chidoteee crear menu de usuario -bynd
         const userMenu = document.createElement('div');
         userMenu.className = 'user-menu';
@@ -54,10 +71,13 @@ function actualizarUIUsuario() {
         `;
         
         btnLogin.replaceWith(userMenu);
+    } else {
+        console.log('[APP] No hay usuario o no hay btnLogin');
     }
 }
 
 function cerrarSesion() {
+    console.log('[APP] cerrarSesion()');
     localStorage.removeItem('usuario');
     usuarioActual = null;
     mostrarAlerta('Sesión cerrada', 'success');
@@ -68,9 +88,12 @@ function cerrarSesion() {
 
 // ey funciones de productos -bynd
 async function cargarProductosDestacados() {
+    console.log('[APP] cargarProductosDestacados()');
     try {
         const response = await fetch(`${API_URL}/api/productos`);
+        console.log('[APP] Response productos:', response.status);
         const productos = await response.json();
+        console.log('[APP] Productos recibidos:', productos.length);
         
         // aaa mostrar solo 8 productos -bynd
         const destacados = productos.slice(0, 8);
@@ -79,7 +102,7 @@ async function cargarProductosDestacados() {
         container.innerHTML = destacados.map(producto => crearCardProducto(producto)).join('');
         
     } catch (error) {
-        console.error('Error cargando productos:', error);
+        console.error('[APP] Error cargando productos:', error);
     }
 }
 
@@ -110,7 +133,10 @@ function crearCardProducto(producto) {
 
 // chintrolas funciones del carrito -bynd
 async function agregarAlCarrito(productoId) {
+    console.log('[APP] agregarAlCarrito()', productoId);
+    
     if (!usuarioActual) {
+        console.log('[APP] No hay sesión, redirigiendo a login');
         mostrarAlerta('Inicia sesión para agregar productos', 'error');
         setTimeout(() => {
             window.location.href = 'login.html';
@@ -119,27 +145,40 @@ async function agregarAlCarrito(productoId) {
     }
     
     try {
+        console.log('[APP] Agregando producto al carrito...');
         const response = await fetch(`${API_URL}/api/carrito/${usuarioActual.id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ productoId, cantidad: 1 })
         });
         
+        console.log('[APP] Response agregar:', response.status);
+        
         if (response.ok) {
             mostrarAlerta('Producto agregado al carrito', 'success');
             actualizarBadgeCarrito();
+        } else {
+            const data = await response.json();
+            console.error('[APP] Error:', data);
+            mostrarAlerta(data.error || 'Error al agregar', 'error');
         }
     } catch (error) {
-        console.error('Error agregando al carrito:', error);
+        console.error('[APP] Error agregando al carrito:', error);
         mostrarAlerta('Error al agregar producto', 'error');
     }
 }
 
 async function actualizarBadgeCarrito() {
+    console.log('[APP] actualizarBadgeCarrito()');
+    
     const badge = document.getElementById('cartBadge');
-    if (!badge) return;
+    if (!badge) {
+        console.log('[APP] No se encontró badge');
+        return;
+    }
     
     if (!usuarioActual) {
+        console.log('[APP] No hay usuario, badge = 0');
         badge.textContent = '0';
         return;
     }
@@ -147,16 +186,21 @@ async function actualizarBadgeCarrito() {
     try {
         const response = await fetch(`${API_URL}/api/carrito/${usuarioActual.id}`);
         const carrito = await response.json();
+        console.log('[APP] Carrito para badge:', carrito);
         
         const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
         badge.textContent = total;
+        console.log('[APP] Badge actualizado:', total);
     } catch (error) {
+        console.error('[APP] Error actualizando badge:', error);
         badge.textContent = '0';
     }
 }
 
 // q chidoteee funcion de alertas -bynd
 function mostrarAlerta(mensaje, tipo = 'success') {
+    console.log('[APP] mostrarAlerta()', mensaje, tipo);
+    
     // ey remover alertas anteriores -bynd
     const alertasAnteriores = document.querySelectorAll('.alert');
     alertasAnteriores.forEach(a => a.remove());
@@ -177,3 +221,5 @@ function formatearPrecio(precio) {
     const num = parseFloat(precio) || 0;
     return `$${num.toFixed(2)} MXN`;
 }
+
+console.log('[APP] Script cargado completamente');
