@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - La Desesperanza</title>
+    <title>Acceder — La Desesperanza</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container header-content">
             <a href="index.html" class="logo">
-                <span class="logo-icon">🥖</span>
+                <div class="logo-mark"><span>LD</span></div>
                 <div class="logo-text">
-                    <h1>LA DESESPERANZA</h1>
-                    <span>Panadería Exclusiva</span>
+                    <strong>La Desesperanza</strong>
+                    [PANADERÍA]
                 </div>
             </a>
             
@@ -24,8 +22,8 @@
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="productos.html" class="nav-link">Catálogo</a>
                 <a href="carrito.html" class="nav-link">
-                    🛒 Carrito
-                    <span class="cart-badge" id="cartBadge">0</span>
+                    Carrito
+                    <span class="cart-count" id="cartBadge">0</span>
                 </a>
             </nav>
             
@@ -42,32 +40,32 @@
         <div class="login-container">
             <div class="login-header">
                 <h2>Bienvenido</h2>
-                <p>Accede a tu cuenta o crea una nueva</p>
+                <p>[ACCEDE O CREA TU CUENTA]</p>
             </div>
             
             <div class="login-tabs">
-                <button class="login-tab active" id="tabLogin" onclick="mostrarTab('login')">Iniciar Sesión</button>
-                <button class="login-tab" id="tabRegistro" onclick="mostrarTab('registro')">Registrarse</button>
+                <button class="login-tab active" id="tabLogin" onclick="mostrarTab('login')">[Iniciar Sesión]</button>
+                <button class="login-tab" id="tabRegistro" onclick="mostrarTab('registro')">[Registrarse]</button>
             </div>
             
             <!-- Formulario Login -->
             <form class="login-form" id="formLogin" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="loginEmail">Email</label>
+                    <label for="loginEmail">[Email]</label>
                     <input type="email" id="loginEmail" placeholder="tu@email.com" required>
                     <p class="form-error" id="errorLoginEmail"></p>
                 </div>
                 
                 <div class="form-group">
-                    <label for="loginPassword">Contraseña</label>
+                    <label for="loginPassword">[Contraseña]</label>
                     <input type="password" id="loginPassword" placeholder="••••••••" required>
                     <p class="form-error" id="errorLoginPassword"></p>
                 </div>
                 
-                <button type="submit" class="btn-submit">Iniciar Sesión</button>
+                <button type="submit" class="btn-submit">Iniciar Sesión →</button>
                 
                 <div class="login-demo">
-                    <p>Cuentas de prueba:</p>
+                    <p>[Cuentas de prueba]</p>
                     <code>admin@ladesesperanza.mx / admin123</code>
                     <code>cliente@ejemplo.com / cliente123</code>
                 </div>
@@ -76,28 +74,28 @@
             <!-- Formulario Registro -->
             <form class="login-form" id="formRegistro" style="display: none;" onsubmit="handleRegistro(event)">
                 <div class="form-group">
-                    <label for="registroNombre">Nombre</label>
+                    <label for="registroNombre">[Nombre]</label>
                     <input type="text" id="registroNombre" placeholder="Tu nombre" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="registroEmail">Email</label>
+                    <label for="registroEmail">[Email]</label>
                     <input type="email" id="registroEmail" placeholder="tu@email.com" required>
                     <p class="form-error" id="errorRegistroEmail"></p>
                 </div>
                 
                 <div class="form-group">
-                    <label for="registroPassword">Contraseña</label>
+                    <label for="registroPassword">[Contraseña]</label>
                     <input type="password" id="registroPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
                 </div>
                 
                 <div class="form-group">
-                    <label for="registroConfirm">Confirmar Contraseña</label>
+                    <label for="registroConfirm">[Confirmar Contraseña]</label>
                     <input type="password" id="registroConfirm" placeholder="Repite tu contraseña" required>
                     <p class="form-error" id="errorRegistroConfirm"></p>
                 </div>
                 
-                <button type="submit" class="btn-submit">Crear Cuenta</button>
+                <button type="submit" class="btn-submit">Crear Cuenta →</button>
             </form>
         </div>
     </section>

@@ -1,4 +1,4 @@
-// ey carrito.js - logica del carrito de compras -bynd
+// ey carrito.js - logica del carrito -bynd
 
 // aaa variables -bynd
 let carritoItems = [];
@@ -45,7 +45,7 @@ async function cargarSaldoUsuario() {
     try {
         const response = await fetch(`/api/usuarios/${usuarioActual.id}`);
         const usuario = await response.json();
-        saldoUsuario = usuario.saldo;
+        saldoUsuario = parseFloat(usuario.saldo) || 0;
         document.getElementById('saldoUsuario').textContent = `$${saldoUsuario.toFixed(2)}`;
     } catch (error) {
         console.error('Error cargando saldo:', error);
@@ -57,31 +57,40 @@ function renderizarCarrito() {
     const lista = document.getElementById('carritoLista');
     const imgPlaceholder = 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400';
     
-    lista.innerHTML = carritoItems.map(item => `
-        <div class="carrito-item" data-id="${item.productoId}">
-            <img src="${item.producto.imagen}" alt="${item.producto.nombre}" class="carrito-item-imagen" onerror="this.src='${imgPlaceholder}'">
-            <div class="carrito-item-info">
-                <h4 class="carrito-item-nombre">${item.producto.nombre}</h4>
-                <p class="carrito-item-precio">$${item.producto.precio.toFixed(2)} c/u</p>
-                <div class="cantidad-control">
-                    <button class="cantidad-btn" onclick="cambiarCantidad(${item.productoId}, -1)">-</button>
-                    <span class="cantidad-valor">${item.cantidad}</span>
-                    <button class="cantidad-btn" onclick="cambiarCantidad(${item.productoId}, 1)">+</button>
+    lista.innerHTML = carritoItems.map(item => {
+        // q chidoteee fix del precio -bynd
+        const precio = parseFloat(item.producto.precio) || 0;
+        const subtotal = precio * item.cantidad;
+        
+        return `
+            <div class="carrito-item" data-id="${item.productoId}">
+                <img src="${item.producto.imagen}" alt="${item.producto.nombre}" class="carrito-item-imagen" onerror="this.src='${imgPlaceholder}'">
+                <div class="carrito-item-info">
+                    <h4 class="carrito-item-nombre">${item.producto.nombre}</h4>
+                    <p class="carrito-item-precio">$${precio.toFixed(2)} c/u</p>
+                    <div class="cantidad-control">
+                        <button class="cantidad-btn" onclick="cambiarCantidad(${item.productoId}, -1)">−</button>
+                        <span class="cantidad-valor">${item.cantidad}</span>
+                        <button class="cantidad-btn" onclick="cambiarCantidad(${item.productoId}, 1)">+</button>
+                    </div>
                 </div>
-                <button class="btn-eliminar" onclick="eliminarItem(${item.productoId})">🗑️ Eliminar</button>
+                <div class="carrito-item-total">
+                    <span>$${subtotal.toFixed(2)}</span>
+                    <button class="btn-eliminar" onclick="eliminarItem(${item.productoId})">Eliminar</button>
+                </div>
             </div>
-            <div class="carrito-item-total">
-                $${(item.producto.precio * item.cantidad).toFixed(2)}
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
     
     calcularTotales();
 }
 
-// q chidoteee calcular totales -bynd
+// ey calcular totales -bynd
 function calcularTotales() {
-    const subtotal = carritoItems.reduce((sum, item) => sum + (item.producto.precio * item.cantidad), 0);
+    const subtotal = carritoItems.reduce((sum, item) => {
+        const precio = parseFloat(item.producto.precio) || 0;
+        return sum + (precio * item.cantidad);
+    }, 0);
     const iva = subtotal * 0.16;
     const total = subtotal + iva;
     
@@ -89,7 +98,7 @@ function calcularTotales() {
     document.getElementById('iva').textContent = `$${iva.toFixed(2)}`;
     document.getElementById('total').textContent = `$${total.toFixed(2)}`;
     
-    // ey verificar si tiene saldo suficiente -bynd
+    // aaa verificar si tiene saldo suficiente -bynd
     const btnPagar = document.getElementById('btnPagar');
     const mensajeSaldo = document.getElementById('mensajeSaldo');
     
@@ -102,7 +111,7 @@ function calcularTotales() {
     }
 }
 
-// aaa cambiar cantidad de un item -bynd
+// chintrolas cambiar cantidad de un item -bynd
 async function cambiarCantidad(productoId, cambio) {
     const item = carritoItems.find(i => i.productoId === productoId);
     if (!item) return;
@@ -131,7 +140,7 @@ async function cambiarCantidad(productoId, cambio) {
     }
 }
 
-// chintrolas eliminar item del carrito -bynd
+// q chidoteee eliminar item del carrito -bynd
 async function eliminarItem(productoId) {
     try {
         const response = await fetch(`/api/carrito/${usuarioActual.id}/${productoId}`, {
@@ -156,9 +165,9 @@ async function eliminarItem(productoId) {
     }
 }
 
-// q chidoteee vaciar carrito completo -bynd
+// ey vaciar carrito completo -bynd
 async function vaciarCarrito() {
-    if (!confirm('¿Estás seguro de vaciar el carrito?')) return;
+    if (!confirm('¿Vaciar el carrito?')) return;
     
     try {
         const response = await fetch(`/api/carrito/${usuarioActual.id}`, {
@@ -177,7 +186,7 @@ async function vaciarCarrito() {
     }
 }
 
-// ey procesar compra -bynd
+// aaa procesar compra -bynd
 async function procesarCompra() {
     try {
         const response = await fetch(`/api/comprar/${usuarioActual.id}`, {
@@ -187,9 +196,9 @@ async function procesarCompra() {
         const data = await response.json();
         
         if (response.ok) {
-            mostrarAlerta('¡Compra realizada con éxito!', 'success');
+            mostrarAlerta('Compra realizada con éxito', 'success');
             
-            // aaa actualizar saldo en localStorage -bynd
+            // chintrolas actualizar saldo en localStorage -bynd
             usuarioActual.saldo = data.nuevoSaldo;
             localStorage.setItem('usuario', JSON.stringify(usuarioActual));
             

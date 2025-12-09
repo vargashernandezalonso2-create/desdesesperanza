@@ -62,44 +62,50 @@ function actualizarStats() {
     document.getElementById('statProductos').textContent = productos.length;
     document.getElementById('statUsuarios').textContent = usuarios.length;
     document.getElementById('statPanDulce').textContent = productos.filter(p => p.categoria === 'pan-dulce').length;
-    document.getElementById('statStock').textContent = productos.reduce((sum, p) => sum + p.stock, 0);
+    document.getElementById('statStock').textContent = productos.reduce((sum, p) => sum + (parseInt(p.stock) || 0), 0);
 }
 
 // q chidoteee renderizar tabla de productos -bynd
 function renderizarProductos() {
     const tabla = document.getElementById('tablaProductos');
     
-    tabla.innerHTML = productos.map(p => `
-        <tr>
-            <td>${p.id}</td>
-            <td>${p.nombre}</td>
-            <td>${p.categoria}</td>
-            <td>$${p.precio.toFixed(2)}</td>
-            <td>${p.stock}</td>
-            <td>
-                <button class="btn-small btn-success" onclick="editarProducto(${p.id})">✏️</button>
-                <button class="btn-small btn-danger" onclick="eliminarProducto(${p.id})">🗑️</button>
-            </td>
-        </tr>
-    `).join('');
+    tabla.innerHTML = productos.map(p => {
+        const precio = parseFloat(p.precio) || 0;
+        return `
+            <tr>
+                <td>${p.id}</td>
+                <td>${p.nombre}</td>
+                <td>[${p.categoria}]</td>
+                <td>$${precio.toFixed(2)}</td>
+                <td>${p.stock}</td>
+                <td>
+                    <button class="btn-small btn-success" onclick="editarProducto(${p.id})">Editar</button>
+                    <button class="btn-small btn-danger" onclick="eliminarProducto(${p.id})">Eliminar</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
 }
 
 // ey renderizar tabla de usuarios -bynd
 function renderizarUsuarios() {
     const tabla = document.getElementById('tablaUsuarios');
     
-    tabla.innerHTML = usuarios.map(u => `
-        <tr>
-            <td>${u.id}</td>
-            <td>${u.nombre}</td>
-            <td>${u.email}</td>
-            <td><span class="badge badge-${u.rol}">${u.rol}</span></td>
-            <td>$${u.saldo.toFixed(2)}</td>
-            <td>
-                <button class="btn-small btn-success" onclick="mostrarModalSaldo(${u.id}, '${u.nombre}')">💰</button>
-            </td>
-        </tr>
-    `).join('');
+    tabla.innerHTML = usuarios.map(u => {
+        const saldo = parseFloat(u.saldo) || 0;
+        return `
+            <tr>
+                <td>${u.id}</td>
+                <td>${u.nombre}</td>
+                <td>${u.email}</td>
+                <td><span class="badge badge-${u.rol}">[${u.rol}]</span></td>
+                <td>$${saldo.toFixed(2)}</td>
+                <td>
+                    <button class="btn-small btn-success" onclick="mostrarModalSaldo(${u.id}, '${u.nombre}')">+ Saldo</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
 }
 
 // aaa mostrar modal de saldo -bynd
@@ -147,7 +153,7 @@ function mostrarModalProducto(id = null) {
         if (producto) {
             document.getElementById('productoNombre').value = producto.nombre;
             document.getElementById('productoDescripcion').value = producto.descripcion;
-            document.getElementById('productoPrecio').value = producto.precio;
+            document.getElementById('productoPrecio').value = parseFloat(producto.precio) || 0;
             document.getElementById('productoCategoria').value = producto.categoria;
             document.getElementById('productoStock').value = producto.stock;
             document.getElementById('productoImagen').value = producto.imagen;
@@ -209,7 +215,7 @@ async function guardarProducto() {
 
 // ey eliminar producto -bynd
 async function eliminarProducto(id) {
-    if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+    if (!confirm('¿Eliminar este producto?')) return;
     
     try {
         const response = await fetch(`/api/admin/productos/${id}`, {

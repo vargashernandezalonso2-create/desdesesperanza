@@ -1,4 +1,4 @@
-// ey app.js principal de la panaderia -bynd
+// ey app.js principal -bynd
 
 // aaa variables globales -bynd
 const API_URL = '';
@@ -49,7 +49,7 @@ function actualizarUIUsuario() {
             <div class="user-info">
                 Hola, <span>${usuarioActual.nombre}</span>
             </div>
-            ${usuarioActual.rol === 'admin' ? '<a href="admin.html" class="btn-admin">Admin</a>' : ''}
+            ${usuarioActual.rol === 'admin' ? '<a href="admin.html" class="btn-admin">[Admin]</a>' : ''}
             <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
         `;
         
@@ -72,8 +72,8 @@ async function cargarProductosDestacados() {
         const response = await fetch(`${API_URL}/api/productos`);
         const productos = await response.json();
         
-        // aaa mostrar solo 6 productos -bynd
-        const destacados = productos.slice(0, 6);
+        // aaa mostrar solo 8 productos -bynd
+        const destacados = productos.slice(0, 8);
         
         const container = document.getElementById('productosDestacados');
         container.innerHTML = destacados.map(producto => crearCardProducto(producto)).join('');
@@ -84,20 +84,23 @@ async function cargarProductosDestacados() {
 }
 
 function crearCardProducto(producto) {
-    // ey imagen placeholder si falla la original -bynd
+    // ey fix del precio - convertir a numero si viene como string -bynd
+    const precio = parseFloat(producto.precio) || 0;
     const imgPlaceholder = 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400';
     
     return `
         <div class="producto-card">
-            <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen" onerror="this.src='${imgPlaceholder}'">
+            <div class="producto-imagen-wrapper">
+                <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen" onerror="this.src='${imgPlaceholder}'">
+            </div>
             <div class="producto-info">
-                <span class="producto-categoria">${producto.categoria}</span>
+                <span class="producto-categoria">[${producto.categoria}]</span>
                 <h3 class="producto-nombre">${producto.nombre}</h3>
                 <p class="producto-descripcion">${producto.descripcion}</p>
                 <div class="producto-footer">
-                    <span class="producto-precio">$${producto.precio.toFixed(2)}</span>
+                    <span class="producto-precio">$${precio.toFixed(2)}</span>
                     <button class="btn-agregar" onclick="agregarAlCarrito(${producto.id})">
-                        Agregar
+                        Agregar →
                     </button>
                 </div>
             </div>
@@ -171,5 +174,6 @@ function mostrarAlerta(mensaje, tipo = 'success') {
 
 // aaa utilidades -bynd
 function formatearPrecio(precio) {
-    return `$${precio.toFixed(2)} MXN`;
+    const num = parseFloat(precio) || 0;
+    return `$${num.toFixed(2)} MXN`;
 }

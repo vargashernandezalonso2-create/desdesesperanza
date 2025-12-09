@@ -29,8 +29,9 @@ async function cargarProductos() {
     } catch (error) {
         console.error('Error cargando productos:', error);
         document.getElementById('productosGrid').innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                <p>Error al cargar productos. Intenta de nuevo.</p>
+            <div class="no-results" style="grid-column: 1/-1;">
+                <h3>Error al cargar</h3>
+                <p>No se pudieron cargar los productos. Intenta de nuevo.</p>
             </div>
         `;
     }

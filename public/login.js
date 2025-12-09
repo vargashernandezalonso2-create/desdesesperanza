@@ -67,7 +67,7 @@ async function handleLogin(event) {
         if (response.ok) {
             // chintrolas guardar usuario en localStorage -bynd
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            mostrarAlerta('¡Bienvenido!', 'success');
+            mostrarAlerta('Bienvenido', 'success');
             
             setTimeout(() => {
                 window.location.href = 'index.html';
@@ -109,7 +109,7 @@ async function handleRegistro(event) {
         if (response.ok) {
             // ey guardar usuario en localStorage -bynd
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            mostrarAlerta('¡Cuenta creada exitosamente!', 'success');
+            mostrarAlerta('Cuenta creada exitosamente', 'success');
             
             setTimeout(() => {
                 window.location.href = 'index.html';
